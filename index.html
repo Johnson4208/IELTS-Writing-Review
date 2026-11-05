@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f6f7f2">
+  <meta name="description" content="Thư viện bài IELTS Writing đã được chấm chữa chi tiết theo từng đoạn, câu và tiêu chí chấm điểm.">
+  <title>Essay Room — IELTS Writing Review</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="#home" aria-label="Essay Room trang chủ">
+        <span class="brand-mark"><span></span><span></span><span></span></span>
+        <span>essay<span class="brand-light">room</span><small>IELTS WRITING STUDIO</small></span>
+      </a>
+      <div class="side-label">KHÔNG GIAN HỌC</div>
+      <nav class="main-nav" aria-label="Điều hướng chính">
+        <a class="nav-item active" href="#home"><span class="nav-icon">⌂</span>Tổng quan</a>
+        <a class="nav-item" href="#reviews"><span class="nav-icon">▤</span>Bài đã chữa <span class="nav-count" id="nav-count">0</span></a>
+        <a class="nav-item" href="#samples"><span class="nav-icon">✳</span>Bài mẫu</a>
+      </nav>
+      <div class="sidebar-note">
+        <div class="note-symbol">✦</div>
+        <div class="note-title">Học từ lỗi sai</div>
+        <p>Mỗi nhận xét đều đi kèm lý do và cách viết tốt hơn.</p>
+      </div>
+      <div class="sidebar-footer"><span class="avatar">ER</span><span><b>Essay Room</b><small>Thư viện học tập cá nhân</small></span><span class="dots">•••</span></div>
+    </aside>
+
+    <main class="main-area" id="home">
+      <header class="topbar">
+        <button class="mobile-menu" id="mobile-menu" aria-label="Mở menu">☰</button>
+        <div class="breadcrumb">Thư viện <span>/</span> <b>IELTS Writing</b></div>
+        <div class="top-actions"><span class="live-dot"></span><span class="curated-label">NỘI DUNG ĐƯỢC BIÊN TẬP</span><div class="top-avatar">E</div></div>
+      </header>
+
+      <section class="welcome-section">
+        <div>
+          <div class="eyebrow"><span class="eyebrow-line"></span>VIẾT RÕ HƠN, TIẾN BỘ NHANH HƠN</div>
+          <h1>Chào bạn, <em>người viết.</em></h1>
+          <p class="welcome-copy">Xem lại từng nhận xét, hiểu vì sao câu văn chưa ổn và học cách nâng cấp bài viết của mình.</p>
+        </div>
+        <div class="welcome-art" aria-hidden="true"><div class="art-ring ring-one"></div><div class="art-ring ring-two"></div><div class="art-spark">✳</div><div class="art-paper"><span></span><span></span><span></span><span></span><b>7.5</b></div></div>
+      </section>
+
+      <section class="metrics" aria-label="Thống kê thư viện">
+        <article class="metric-card"><div class="metric-icon lilac">▤</div><div><span class="metric-label">BÀI ĐÃ CHỮA</span><strong id="total-reviews">—</strong></div><span class="metric-tail">bài viết</span></article>
+        <article class="metric-card"><div class="metric-icon mint">◎</div><div><span class="metric-label">ĐIỂM TRUNG BÌNH</span><strong id="average-band">—</strong></div><span class="metric-tail">ước lượng</span></article>
+        <article class="metric-card"><div class="metric-icon peach">↗</div><div><span class="metric-label">KỸ NĂNG TẬP TRUNG</span><strong class="metric-word">Viết học thuật</strong></div><span class="metric-tail">Writing</span></article>
+      </section>
+
+      <section class="section-block" id="reviews">
+        <div class="section-heading"><div><div class="eyebrow small">THƯ VIỆN CỦA BẠN</div><h2>Bài viết đã nhận xét <span class="heading-count" id="heading-count">0</span></h2></div><a href="#all-reviews" class="text-link" id="view-all">Xem tất cả <span>→</span></a></div>
+        <div class="filter-row"><div class="search-box"><span>⌕</span><input id="search" type="search" placeholder="Tìm theo đề bài hoặc chủ đề..." aria-label="Tìm bài viết"></div><div class="filters" role="group" aria-label="Lọc loại bài"><button class="filter-chip selected" data-filter="all">Tất cả</button><button class="filter-chip" data-filter="task2">Task 2</button><button class="filter-chip" data-filter="task1">Task 1</button></div></div>
+        <div class="review-grid" id="review-grid"></div>
+        <div class="empty-state" id="empty-state" hidden><div>⌕</div><b>Chưa tìm thấy bài viết</b><p>Thử từ khóa hoặc bộ lọc khác nhé.</p></div>
+      </section>
+
+      <section class="sample-banner" id="samples"><div class="sample-orb">✦</div><div class="sample-copy"><div class="eyebrow small">GÓC HỌC TẬP</div><h2>Học cách viết tốt hơn qua bài mẫu</h2><p>Đối chiếu cấu trúc, cách phát triển ý và từ vựng học thuật trong bài mẫu có phân tích.</p></div><a href="#review-detail" class="sample-button" id="sample-link">Khám phá bài mẫu <span>→</span></a><div class="banner-decoration">Aa</div></section>
+      <footer class="page-footer"><span>ESSAY ROOM · IELTS WRITING</span><span>Nhận xét mang tính tham khảo và phục vụ học tập.</span></footer>
+    </main>
+  </div>
+
+  <div class="detail-overlay" id="detail-overlay" hidden>
+    <div class="detail-panel" role="dialog" aria-modal="true" aria-labelledby="detail-title">
+      <div class="detail-top"><button id="back-button" class="back-button"><span>←</span> Thư viện</button><button id="close-detail" class="close-button" aria-label="Đóng">×</button></div>
+      <div id="detail-content"></div>
+    </div>
+  </div>
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
