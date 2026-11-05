@@ -38,8 +38,8 @@
 
   function highlightOriginal(text, annotations) {
     let out = escapeHtml(text);
-    const sorted = [...annotations].sort((a, b) => b.quote.length - a.quote.length);
-    sorted.forEach((annotation, index) => {
+    const sorted = annotations.map((annotation, index) => ({annotation, index})).sort((a, b) => b.annotation.quote.length - a.annotation.quote.length);
+    sorted.forEach(({annotation, index}) => {
       const escapedQuote = escapeHtml(annotation.quote);
       const escapedQuoteRegex = escapedQuote.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
       const expression = new RegExp(escapedQuoteRegex, 'i');
