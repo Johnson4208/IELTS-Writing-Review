@@ -22,7 +22,7 @@ Ví dụ hiện tại chỉ là nội dung minh họa giao diện. Khi bổ sung
 
 ## Xuất bản bằng GitHub Pages
 
-Repo có workflow tại `.github/workflows/pages.yml`. Trong GitHub, vào **Settings → Pages**, chọn **GitHub Actions** làm nguồn xuất bản. Mỗi lần cập nhật nhánh `main`, workflow sẽ triển khai trang tĩnh. Nếu repo private và gói GitHub hiện tại không hỗ trợ Pages cho repo private, cần đổi repo thành public hoặc dùng một gói có hỗ trợ.
+Repo có workflow tại `.github/workflows/pages.yml`. Trong GitHub, vào **Settings → Pages**, chọn **GitHub Actions** làm nguồn xuất bản. Mỗi lần cập nhật nhánh `master`, workflow sẽ triển khai trang tĩnh. Nếu repo private và gói GitHub hiện tại không hỗ trợ Pages cho repo private, cần đổi repo thành public hoặc dùng một gói có hỗ trợ.
 
 ## Lưu ý
 
