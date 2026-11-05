@@ -142,3 +142,73 @@ summary { cursor: pointer; font-weight: 700; }
 .ink-mark { max-width: 100%; overflow-wrap: anywhere; }
 
 .paper-writing > p { line-height: 28px; background: repeating-linear-gradient(to bottom,transparent 0 27px,#e4eef3 27px 28px); }
+
+/* The welcome screen introduces the same notebook used to review an essay. */
+.welcome-section {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(24px, 4vw, 52px);
+  padding: clamp(24px, 3.8vw, 44px);
+  margin-top: 24px;
+  background: #073e3d;
+  color: #f4fcf8;
+}
+.welcome-section:not(:has(.welcome-preview:not([hidden]))) { grid-template-columns: minmax(0, 1fr); }
+.welcome-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #bce8d8;
+  font-size: .8rem;
+  font-weight: 700;
+  letter-spacing: .055em;
+  text-transform: uppercase;
+}
+.welcome-section h1 {
+  color: #fffdf3;
+  font: 700 clamp(34px, 4.2vw, 54px)/1.09 "Manrope", "DM Sans", system-ui, sans-serif;
+  letter-spacing: -.055em;
+  margin-block: 12px;
+}
+.welcome-section h1 em { color: #b9ebd6; }
+.welcome-copy { color: #d7ebe7; max-width: 42ch; }
+.welcome-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 15px; margin-top: 20px; }
+.welcome-actions a { display: inline-flex; align-items: center; gap: 9px; min-height: 44px; border-radius: 8px; font-size: .88rem; font-weight: 700; }
+.welcome-primary { background: #ffedbf; color: #123c39; padding: 8px 13px; }
+.welcome-primary:hover { background: #fff6db; }
+.welcome-secondary { color: #e1f3ed; padding: 8px 2px; }
+.welcome-secondary:hover { text-decoration: underline; text-underline-offset: 4px; }
+.welcome-actions a:focus-visible { outline-color: #fff0c7; }
+.welcome-preview {
+  min-width: 0;
+  background: #fffdf5;
+  color: var(--ink);
+  border: 1px solid #dbe2d2;
+  border-radius: 12px;
+  box-shadow: 0 8px 0 #002a29;
+  padding: 17px clamp(13px, 2.1vw, 24px);
+  overflow-wrap: anywhere;
+}
+.preview-top { display: flex; flex-wrap: wrap; gap: 6px; justify-content: space-between; align-items: center; font-size: .75rem; font-weight: 700; color: var(--teal); }
+.preview-task { background: var(--soft); border-radius: 5px; padding: 3px 7px; }
+.welcome-preview h2 { font-size: 1.12rem; line-height: 1.35; margin: 8px 0 12px; }
+.preview-before, .preview-after { border-top: 1px solid #d9e6e5; padding: 7px 0; }
+.preview-before > span, .preview-after > span { display: block; font-size: .75rem; font-weight: 700; }
+.preview-before > span { color: var(--coral); }
+.preview-after > span { color: var(--teal); }
+.preview-before p, .preview-after p { font: 1rem/1.55 Georgia, serif; }
+.preview-before p { background: #ffe7df; color: #6e3129; display: inline; box-decoration-break: clone; }
+.preview-after p { color: #174f43; }
+.main-area > .metrics { margin-block: 14px 23px; }
+.metrics .metric-card { padding-block: 8px; }
+#reviews { scroll-margin-top: 18px; }
+@media (max-width: 700px) {
+  .welcome-section { grid-template-columns: minmax(0, 1fr); gap: 17px; margin-top: 15px; }
+  .welcome-section h1 { font-size: clamp(32px, 8vw, 48px); }
+  .welcome-preview { box-shadow: 0 4px 0 #002a29; }
+  .metrics { gap: 6px; }
+  .metric-card { flex-basis: 90px; min-width: 0; gap: 5px; padding-inline: 8px; }
+  .metric-icon { display: none; }
+  .metric-label { display: block; font-size: .63rem; letter-spacing: .025em; }
+}

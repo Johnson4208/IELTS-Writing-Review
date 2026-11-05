@@ -12,6 +12,28 @@
   const band = score => Number(score).toFixed(1);
   const clampTitle = text => text.length > 55 ? `${text.slice(0, 52)}…` : text;
 
+  function renderWelcome() {
+    const notes = reviews.flatMap(review => review.paragraphs.flatMap(paragraph => paragraph.annotations || []));
+    document.querySelector('#total-notes').textContent = notes.length;
+    const featuredReview = reviews[0];
+    const featuredNote = featuredReview?.paragraphs.flatMap(paragraph => paragraph.annotations || [])
+      .find(note => note.quote && note.fix && note.quote !== note.fix);
+    const primary = document.querySelector('#welcome-open');
+
+    if (!featuredReview) {
+      primary.hidden = true;
+      return;
+    }
+    primary.dataset.open = featuredReview.id;
+    primary.href = '#review-detail/' + encodeURIComponent(featuredReview.id);
+    if (!featuredNote) return;
+    document.querySelector('#preview-title').textContent = featuredReview.title;
+    document.querySelector('#preview-task').textContent = featuredReview.typeLabel;
+    document.querySelector('#preview-quote').textContent = featuredNote.quote;
+    document.querySelector('#preview-fix').textContent = featuredNote.fix;
+    document.querySelector('#welcome-preview').hidden = false;
+  }
+
   function renderCards() {
     const query = search.value.trim().toLocaleLowerCase('vi');
     const filtered = reviews.filter(review => {
@@ -142,7 +164,10 @@
 
   document.addEventListener('click', event => {
     const opener = event.target.closest('[data-open]');
-    if (opener) return openReview(opener.dataset.open);
+    if (opener) {
+      event.preventDefault();
+      return openReview(opener.dataset.open);
+    }
     if (event.target.closest('#sample-link')) {
       event.preventDefault();
       const review = reviews.find(item => item.modelEssay?.length);
@@ -171,6 +196,7 @@
   overlay.addEventListener('click', event => { if (event.target === overlay) closeReview(); });
   document.addEventListener('keydown', event => { if (event.key === 'Escape' && !overlay.hidden) closeReview(); });
   renderCards();
+  renderWelcome();
 
   const route = location.hash.match(/^#review-detail\/([^/]+)/);
   if (route) {
