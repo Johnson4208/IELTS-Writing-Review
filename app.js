@@ -25,81 +25,141 @@
         <div class="topic-line">${escapeHtml(review.topic)} <span>·</span> ${escapeHtml(review.date)}</div>
         <h3>${escapeHtml(clampTitle(review.title))}</h3>
         <p class="prompt-preview">${escapeHtml(review.prompt)}</p>
-        <div class="card-bottom"><span class="word-meta">${escapeHtml(String(review.wordCount))} từ <i>·</i> ${escapeHtml(review.paragraphs.length + ' đoạn được nhận xét')}</span><button class="open-review" data-open="${escapeHtml(review.id)}" aria-label="Mở bài: ${escapeHtml(review.title)}">Mở bài <span>↗</span></button></div>
+        <div class="card-bottom"><span class="word-meta">${escapeHtml(String(review.wordCount))} từ <i>·</i> ${escapeHtml(review.paragraphs.length + ' đoạn được nhận xét')}</span><button class="open-review" data-open="${escapeHtml(review.id)}" aria-label="Mở bài: ${escapeHtml(review.title)}">Mở bài <i class="bi bi-arrow-up-right" aria-hidden="true"></i></button></div>
       </article>`).join('');
     empty.hidden = filtered.length > 0;
     grid.hidden = filtered.length === 0;
+    document.querySelector('#sample-link').hidden = !reviews.some(review => review.modelEssay?.length);
     document.querySelector('#total-reviews').textContent = String(reviews.length).padStart(2, '0');
-    document.querySelector('#nav-count').textContent = reviews.length;
     document.querySelector('#heading-count').textContent = reviews.length;
     const average = reviews.length ? reviews.reduce((sum, item) => sum + Number(item.band), 0) / reviews.length : null;
     document.querySelector('#average-band').textContent = average ? band(average) : '—';
   }
 
-  function highlightOriginal(text, annotations) {
-    let out = escapeHtml(text);
-    const sorted = annotations.map((annotation, index) => ({annotation, index})).sort((a, b) => b.annotation.quote.length - a.annotation.quote.length);
-    sorted.forEach(({annotation, index}) => {
-      const escapedQuote = escapeHtml(annotation.quote);
-      const escapedQuoteRegex = escapedQuote.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-      const expression = new RegExp(escapedQuoteRegex, 'i');
-      out = out.replace(expression, match => `<mark class="annotated-word" data-annotation="${index}" title="${escapeHtml(annotation.title)}">${match}<sup>${index + 1}</sup></mark>`);
+
+  const shell = document.querySelector('.app-shell');
+  const icon = name => '<i class="bi bi-' + name + '" aria-hidden="true"></i>';
+  const kinds = {grammar:'Ngữ pháp',style:'Diễn đạt',task:'Bám sát đề',evidence:'Lập luận',development:'Phát triển ý',vocabulary:'Từ vựng',collocation:'Kết hợp từ'};
+
+  function highlightOriginal(original, annotations, paragraphIndex) {
+    const ranges = [];
+    annotations.forEach(({quote}, index) => {
+      if (!quote) return;
+      const start = original.toLowerCase().indexOf(quote.toLowerCase());
+      if (start < 0) return;
+      const end = start + quote.length;
+      if (ranges.some(range => start < range.end && end > range.start)) return;
+      ranges.push({start, end, index});
     });
-    return out;
+    let cursor = 0;
+    let html = '';
+    ranges.sort((a,b) => a.start - b.start).forEach(({start,end,index}) => {
+      html += escapeHtml(original.slice(cursor,start))
+        + '<button type="button" class="ink-mark" data-note="' + index + '" aria-controls="note-' + paragraphIndex + '-' + index
+        + '" aria-expanded="false">' + escapeHtml(original.slice(start,end)) + '<sup>' + (index + 1) + '</sup></button>';
+      cursor = end;
+    });
+    return html + escapeHtml(original.slice(cursor));
   }
 
-  function renderAnnotations(annotations) {
-    return annotations.map((item, index) => `<article class="annotation-item" id="annotation-${index}">
-      <div class="annotation-number ${escapeHtml(item.kind)}">${index + 1}</div>
-      <div class="annotation-body"><div class="annotation-heading"><span class="annotation-tag ${escapeHtml(item.kind)}">${escapeHtml(({grammar:'NGỮ PHÁP',style:'DIỄN ĐẠT',task:'BÁM SÁT ĐỀ',evidence:'LẬP LUẬN',development:'PHÁT TRIỂN Ý',vocabulary:'TỪ VỰNG',collocation:'KẾT HỢP TỪ'})[item.kind] || 'GỢI Ý')}</span><b>${escapeHtml(item.title)}</b></div><p>${escapeHtml(item.body)}</p><div class="suggestion"><span>GỢI Ý SỬA</span><code>${escapeHtml(item.fix)}</code></div></div>
-    </article>`).join('');
+  function selectNote(row, index, reveal) {
+    row.querySelectorAll('[data-note]').forEach(button => {
+      const selected = Number(button.dataset.note) === index;
+      button.setAttribute('aria-expanded', String(selected && (reveal || window.matchMedia('(min-width: 1031px)').matches)));
+      button.classList.toggle('ink-selected', selected);
+    });
+    row.querySelectorAll('.margin-note').forEach(note => { note.hidden = Number(note.dataset.index) !== index; });
+    if (reveal) row.classList.add('note-open');
   }
 
-  function openReview(id) {
-    const review = reviews.find(item => item.id === id) || reviews[0];
+  function renderParagraph(paragraph, p) {
+    const notes = paragraph.annotations || [];
+    const noteButtons = notes.map((note,i) => '<button type="button" data-note="' + i + '" aria-controls="note-' + p + '-' + i
+      + '" aria-expanded="false" aria-label="Nhận xét ' + (i + 1) + '">' + (i + 1) + '</button>').join('');
+    const noteCards = notes.map((note,i) => '<article class="margin-note" id="note-' + p + '-' + i + '" data-index="' + i + '"'
+      + (i ? ' hidden' : '') + '><b>' + escapeHtml(kinds[note.kind] || 'Gợi ý') + ' · ' + escapeHtml(note.title)
+      + '</b><p>' + escapeHtml(note.body) + '</p><div class="note-fix"><strong>Gợi ý sửa</strong> ' + escapeHtml(note.fix) + '</div></article>').join('');
+    return '<section class="notebook-row" id="paragraph-' + p + '"><div class="paper-label"><b>P' + (p + 1)
+      + '</b><span>' + escapeHtml(paragraph.label) + '</span></div><div class="paper-writing"><p lang="en">'
+      + highlightOriginal(paragraph.original,notes,p) + '</p>' + (paragraph.summary ? '<details><summary>Nhận xét đoạn</summary><p>' + escapeHtml(paragraph.summary) + '</p></details>' : '')
+      + '</div>' + (notes.length ? '<div class="paper-comments"><div class="note-choices" aria-label="Nhận xét đoạn ' + (p + 1) + '">'
+      + noteButtons + '</div><div class="note-content" aria-live="polite">' + noteCards + '</div></div>' : '') + '</section>';
+  }
+
+  function openReview(id, destination) {
+    const review = reviews.find(item => item.id === id);
     if (!review) return;
     previousFocus = document.activeElement;
-    const rubric = review.scores.map(item => `<div class="rubric-item"><span class="rubric-badge ${escapeHtml(item.color)}">${escapeHtml(item.short)}</span><div class="rubric-copy"><div><b>${escapeHtml(item.name)}</b><strong>${band(item.score)}</strong></div><p>${escapeHtml(item.note)}</p></div></div>`).join('');
-    const paragraphs = review.paragraphs.map((paragraph, index) => `<section class="paragraph-review" id="paragraph-${index}">
-      <div class="paragraph-header"><span class="paragraph-index">0${index + 1}</span><div><div class="paragraph-label">${escapeHtml(paragraph.label)}</div><h3>${escapeHtml(paragraph.summary)}</h3></div></div>
-      <div class="original-block"><div class="block-label"><span class="block-dot coral"></span>BÀI GỐC <span class="hint">Nhấn vào phần được đánh dấu để đến nhận xét</span></div><p>${highlightOriginal(paragraph.original, paragraph.annotations)}</p></div>
-      <div class="annotation-list">${renderAnnotations(paragraph.annotations)}</div>
-      <div class="rewrite-block"><div class="block-label"><span class="block-dot green"></span>GỢI Ý VIẾT LẠI</div><p>${escapeHtml(paragraph.rewrite)}</p></div>
-    </section>`).join('');
-    const modelParagraphs = review.modelEssay.map((paragraph, index) => `<p><span class="model-paragraph-number">0${index + 1}</span>${escapeHtml(paragraph)}</p>`).join('');
-    const takeaways = review.takeaways.map(item => `<li>${escapeHtml(item)}</li>`).join('');
-
-    detail.innerHTML = `
-      <div class="detail-hero"><div class="detail-eyebrow"><span>${escapeHtml(review.typeLabel)}</span><span>•</span><span>${escapeHtml(review.topic)}</span></div><h1 id="detail-title">${escapeHtml(review.title)}</h1><p class="detail-prompt">${escapeHtml(review.prompt)}</p><div class="detail-meta"><span>◷ ${escapeHtml(review.duration)}</span><span>▤ ${escapeHtml(String(review.wordCount))} từ</span><span>▧ ${escapeHtml(review.date)}</span></div></div>
-      <div class="detail-layout"><div class="detail-main">
-        <section class="verdict-card"><div class="verdict-icon">✦</div><div><div class="panel-eyebrow">NHẬN XÉT TỔNG QUAN</div><p>${escapeHtml(review.verdict)}</p></div><div class="overall-score"><strong>${band(review.band)}</strong><span>Band ước lượng</span></div></section>
-        <section class="detail-section score-section"><div class="detail-section-heading"><div><div class="panel-eyebrow">ĐÁNH GIÁ THEO TIÊU CHÍ</div><h2>Điểm mạnh & điểm cần cải thiện</h2></div><span class="estimate-note">Điểm tham khảo</span></div><div class="rubric-grid">${rubric}</div></section>
-        <section class="detail-section"><div class="detail-section-heading"><div><div class="panel-eyebrow">NHẬN XÉT CHI TIẾT</div><h2>Đi qua từng đoạn viết</h2></div><span class="detail-count">${review.paragraphs.length} ĐOẠN</span></div>${paragraphs}</section>
-        <section class="model-card"><div class="model-heading"><div><div class="panel-eyebrow">BÀI MẪU THAM KHẢO</div><h2>Sample answer · Band 8.0</h2></div><span class="model-star">✳</span></div><div class="model-essay">${modelParagraphs}</div><div class="takeaway-box"><b>Điều nên học từ bài mẫu</b><ul>${takeaways}</ul></div></section>
-      </div><aside class="detail-aside"><div class="sticky-card"><div class="panel-eyebrow">THÔNG TIN BÀI VIẾT</div><div class="aside-score"><strong>${band(review.band)}</strong><span>Band tổng ước lượng</span></div><div class="aside-divider"></div><div class="aside-stat"><span>Loại bài</span><b>${escapeHtml(review.typeLabel)}</b></div><div class="aside-stat"><span>Số từ</span><b>${escapeHtml(String(review.wordCount))}</b></div><div class="aside-stat"><span>Số đoạn nhận xét</span><b>${escapeHtml(String(review.paragraphs.length))}</b></div><div class="aside-divider"></div><p class="aside-note">Điểm số và nhận xét là tài liệu tham khảo học tập, không phải kết quả chính thức của IELTS.</p><button class="back-to-library" id="aside-back">← Quay lại thư viện</button></div></aside></div>`;
+    const rubric = review.scores.map(item => '<div class="rubric-line"><div><b>' + escapeHtml(item.name) + '</b><strong>'
+      + band(item.score) + '</strong></div><p>' + escapeHtml(item.note) + '</p></div>').join('');
+    const model = (review.modelEssay || []).map(p => '<p lang="en">' + escapeHtml(p) + '</p>').join('');
+    const takeaways = (review.takeaways || []).map(p => '<li>' + escapeHtml(p) + '</li>').join('');
+    const rewrites = review.paragraphs.filter(p => p.rewrite).map(p => '<article><h3>' + escapeHtml(p.label) + '</h3><p lang="en">'
+      + escapeHtml(p.rewrite) + '</p></article>').join('');
+    const totalNotes = review.paragraphs.reduce((sum,p) => sum + (p.annotations || []).length,0);
+    detail.innerHTML = '<header class="review-heading"><div><div class="review-task">' + escapeHtml(review.typeLabel)
+      + '</div><h1 id="detail-title" tabindex="-1">' + escapeHtml(review.title) + '</h1></div><span>' + icon('calendar3') + ' '
+      + escapeHtml(review.date) + '</span></header><div class="review-sheet-layout"><div class="review-sheet-main"><section class="prompt-strip"><b>Đề bài</b><p lang="en">'
+      + escapeHtml(review.prompt) + '</p></section><section id="review-errors" class="notebook-paper" tabindex="-1"><h2>Bài viết gốc của bạn</h2>'
+      + '<p class="paper-instruction">Bấm vào cụm từ được tô màu hoặc số ghi chú để xem giải thích.</p>' + review.paragraphs.map(renderParagraph).join('')
+      + '</section></div><aside class="review-sidebar"><section class="notebook-score"><h2>Điểm ước lượng</h2><div class="score-display"><strong>'
+      + band(review.band) + '</strong><div>' + rubric + '</div></div><details><summary>Nhận xét tổng quan</summary><p>' + escapeHtml(review.verdict)
+      + '</p></details></section><nav class="review-jumps" aria-label="Nội dung bài chữa"><button type="button" data-jump="review-errors">'
+      + icon('search') + '<span><b>Xem lỗi</b><small>' + totalNotes + ' nhận xét trong bài</small></span>' + icon('arrow-right') + '</button>'
+      + (rewrites ? '<button type="button" data-jump="review-rewrites">' + icon('lightbulb') + '<span><b>Câu gợi ý</b><small>Đọc bản viết lại theo đoạn</small></span>' + icon('arrow-right') + '</button>' : '')
+      + (model ? '<button type="button" data-jump="review-model">' + icon('book') + '<span><b>Bài mẫu</b><small>Tham khảo cách triển khai ý</small></span>' + icon('arrow-right') + '</button>' : '')
+      + '</nav></aside></div>'
+      + (model ? '<details class="notebook-model" id="review-model"><summary>' + icon('book') + '<span><b>Bài mẫu tham khảo</b><small lang="en">' + escapeHtml(review.modelEssay[0]) + '</small></span><strong>Xem bài mẫu đầy đủ</strong></summary><div class="model-body">' + model + (takeaways ? '<h3>Điểm nên học</h3><ul>' + takeaways + '</ul>' : '') + '</div></details>' : '')
+      + (rewrites ? '<section class="notebook-rewrites" id="review-rewrites" tabindex="-1"><h2>Câu gợi ý theo từng đoạn</h2>' + rewrites + '</section>' : '');
+    if (window.matchMedia('(min-width: 1031px)').matches) {
+      detail.querySelectorAll('.notebook-row').forEach(row => selectNote(row, 0, false));
+    }
     overlay.hidden = false;
+    shell.inert = true;
     document.body.classList.add('modal-open');
     overlay.scrollTop = 0;
-    document.querySelector('#close-detail').focus();
-    history.replaceState(null, '', `#review-detail/${encodeURIComponent(id)}`);
+    document.querySelector('#detail-title').focus({preventScroll:true});
+    history.replaceState(null, '', '#review-detail/' + encodeURIComponent(id));
+    if (destination) jumpTo(destination);
+  }
+
+  function jumpTo(id) {
+    const target = document.getElementById(id);
+    if (!target) return;
+    if (target instanceof HTMLDetailsElement) target.open = true;
+    (target.querySelector('summary') || target).focus({preventScroll:true});
+    target.scrollIntoView({block:'start'});
   }
 
   function closeReview() {
     overlay.hidden = true;
+    shell.inert = false;
     document.body.classList.remove('modal-open');
     history.replaceState(null, '', location.pathname + location.search + '#reviews');
-    if (previousFocus?.focus) previousFocus.focus();
+    if (shell.contains(previousFocus)) previousFocus.focus();
+    else search.focus();
   }
 
   document.addEventListener('click', event => {
-    const openButton = event.target.closest('[data-open]');
-    if (openButton) return openReview(openButton.dataset.open);
-    if (event.target.closest('#sample-link')) { event.preventDefault(); openReview(reviews[0]?.id); }
-    if (event.target.closest('#close-detail') || event.target.closest('#back-button') || event.target.closest('#aside-back')) closeReview();
-    const marker = event.target.closest('.annotated-word');
-    if (marker) document.querySelector(`#annotation-${marker.dataset.annotation}`)?.scrollIntoView({behavior:'smooth', block:'center'});
+    const opener = event.target.closest('[data-open]');
+    if (opener) return openReview(opener.dataset.open);
+    if (event.target.closest('#sample-link')) {
+      event.preventDefault();
+      const review = reviews.find(item => item.modelEssay?.length);
+      if (review) openReview(review.id,'review-model');
+    }
+    if (event.target.closest('#close-detail, #back-button')) closeReview();
+    if (event.target.closest('[data-library-search]')) search.focus();
+    const marker = event.target.closest('[data-note]');
+    if (marker) {
+      const row = marker.closest('.notebook-row');
+      selectNote(row, Number(marker.dataset.note), true);
+      const note = document.getElementById(marker.getAttribute('aria-controls'));
+      if (note.getBoundingClientRect().bottom > window.innerHeight) note.scrollIntoView({block:'nearest'});
+    }
+    const jump = event.target.closest('[data-jump]');
+    if (jump) jumpTo(jump.dataset.jump);
   });
-
   document.querySelectorAll('.filter-chip').forEach(button => button.addEventListener('click', () => {
     document.querySelector('.filter-chip.selected')?.classList.remove('selected');
     button.classList.add('selected');
@@ -108,11 +168,14 @@
   }));
   search.addEventListener('input', renderCards);
   document.querySelector('#view-all').addEventListener('click', event => { event.preventDefault(); activeFilter = 'all'; search.value = ''; document.querySelector('.filter-chip.selected')?.classList.remove('selected'); document.querySelector('[data-filter="all"]').classList.add('selected'); renderCards(); search.focus(); });
-  document.querySelector('#mobile-menu').addEventListener('click', () => document.querySelector('#sidebar').classList.toggle('sidebar-open'));
   overlay.addEventListener('click', event => { if (event.target === overlay) closeReview(); });
   document.addEventListener('keydown', event => { if (event.key === 'Escape' && !overlay.hidden) closeReview(); });
   renderCards();
 
   const route = location.hash.match(/^#review-detail\/([^/]+)/);
-  if (route) openReview(decodeURIComponent(route[1]));
+  if (route) {
+    try { openReview(decodeURIComponent(route[1])); } catch (error) {
+      if (!(error instanceof URIError)) throw error;
+    }
+  }
 })();
