@@ -211,3 +211,52 @@ summary { cursor: pointer; font-weight: 700; }
   .metric-icon { display: none; }
   .metric-label { display: block; font-size: .63rem; letter-spacing: .025em; }
 }
+
+
+/* A wider study desk, with readable columns instead of empty side margins. */
+.main-area > :not(.notebook-nav) { width: min(1560px,calc(100% - 64px)); }
+.study-layout { display:grid; grid-template-columns:minmax(0,1fr) 340px; gap:28px; align-items:start; margin-bottom:32px; }
+.study-main,.study-sidebar { min-width:0; }
+.study-sidebar { display:grid; gap:20px; }
+.vocab-panel,.practice-panel,.reading-card { border:1px solid var(--line); border-radius:16px; padding:22px; background:#fffefa; }
+.vocab-panel h2,.reading-room h2 { font:700 25px/1.4 var(--heading); color:var(--teal); margin:5px 0; }
+.study-muted { color:#56716f; font-size:14px; margin:8px 0 16px; }
+.vocab-panel label { display:block; font-size:13px; font-weight:700; margin:10px 0; }
+.vocab-panel input,.vocab-panel textarea { display:block; width:100%; border:1px solid var(--line); border-radius:8px; padding:10px; margin-top:5px; background:white; font:inherit; resize:vertical; }
+.vocab-panel button,.reading-body button { border:1px solid var(--line); background:white; border-radius:8px; padding:8px 12px; font-weight:600; }
+#vocab-submit { background:var(--teal); color:white; border-color:var(--teal); }
+.vocab-actions { display:flex; gap:8px; }
+#vocab-status { font-size:13px; color:var(--teal); }
+#vocab-list { max-height:360px; overflow:auto; margin:12px 0; }
+.vocab-entry { padding:12px 0; border-top:1px solid var(--line); overflow-wrap:anywhere; }
+.vocab-entry p { font-size:14px; white-space:pre-wrap; margin:4px 0 8px; }
+.vocab-entry button { font-size:12px; margin-right:6px; padding:4px 10px; }
+.practice-panel { background:var(--soft); }
+.practice-panel ol { padding-left:20px; font-size:14px; line-height:1.9; }
+.practice-panel a { font-weight:700; color:var(--teal); }
+.reading-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; margin-top:18px; }
+.reading-card { background:white; padding:20px; }
+.reading-card summary { list-style:none; }
+.reading-card summary::-webkit-details-marker { display:none; }
+.reading-tag { font-size:11px; letter-spacing:.08em; color:var(--teal); }
+.reading-card h3 { font:700 19px/1.45 var(--heading); margin:10px 0 18px; }
+.reading-card summary > span:last-child { font-size:13px; color:var(--teal); }
+.reading-body { border-top:1px solid var(--line); margin-top:15px; padding-top:15px; }
+.reading-body p { margin-bottom:14px; }
+.reading-body p[lang] { font:17px/1.75 Georgia,serif; }
+.study-main .sample-banner { margin-block:22px; }
+.study-main .sample-copy h2 { font-size:24px; }
+.score-display { grid-template-columns:minmax(0,1fr); gap:18px; }
+.score-display > strong { display:block; text-align:center; background:var(--soft); border-radius:12px; padding:20px; text-decoration:none; }
+.score-display > strong::after { content:' / 9 · Overall'; font:500 14px var(--heading); }
+.rubric-line { padding:12px; font-size:14px; border-radius:8px; margin-bottom:7px; }
+.notebook-model { border:1px solid var(--line); background:#f6fbfa; padding:22px; }
+.notebook-model summary { display:grid; grid-template-columns:36px minmax(0,1fr) auto; gap:16px; }
+.notebook-model summary b { font-size:22px; }
+.notebook-model summary small { max-width:72ch; margin-top:7px; }
+.notebook-model summary > strong { border:1px solid var(--line); background:white; padding:9px 14px; border-radius:9px; font-size:14px; }
+.notebook-model[open] summary { border-bottom:1px solid var(--line); padding-bottom:16px; margin-bottom:18px; }
+.notebook-model[open] summary::after { content:'Thu gọn −'; font-size:14px; justify-self:end; }
+@media(min-width:1700px) { .study-layout {grid-template-columns:minmax(0,1fr) 380px;} }
+@media(max-width:1000px) { .study-layout {grid-template-columns:1fr;} .study-sidebar {grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);} }
+@media(max-width:600px) { .main-area > :not(.notebook-nav) {width:calc(100% - 28px);} .study-sidebar,.reading-grid {grid-template-columns:1fr;} .notebook-model summary {grid-template-columns:28px minmax(0,1fr);} .notebook-model summary > strong {grid-column:2; justify-self:start; margin:0;} .notebook-model summary b {font-size:19px;} .notebook-model[open] summary::after {grid-column:2; justify-self:start;} }

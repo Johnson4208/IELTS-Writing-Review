@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-  <link rel="stylesheet" href="styles.css?v=upright">
+  <link rel="stylesheet" href="styles.css?v=study-hub">
 </head>
 <body>
   <div class="app-shell">
@@ -45,7 +45,7 @@
         <article class="metric-card"><div class="metric-icon peach"><i class="bi bi-pencil" aria-hidden="true"></i></div><div><span class="metric-label">GHI CHÚ CHỮA BÀI</span><strong id="total-notes">—</strong></div><span class="metric-tail">ghi chú</span></article>
       </section>
 
-      <section class="section-block" id="reviews">
+      <div class="study-layout"><div class="study-main"><section class="section-block" id="reviews">
         <div class="section-heading"><div><div class="eyebrow small">THƯ VIỆN CỦA BẠN</div><h2>Bài viết đã nhận xét <span class="heading-count" id="heading-count">0</span></h2></div><a href="#all-reviews" class="text-link" id="view-all">Xem tất cả <span>→</span></a></div>
         <div class="filter-row"><div class="search-box"><i class="bi bi-search" aria-hidden="true"></i><input id="search" type="search" placeholder="Tìm theo đề bài hoặc chủ đề..." aria-label="Tìm bài viết"></div><div class="filters" role="group" aria-label="Lọc loại bài"><button class="filter-chip selected" data-filter="all">Tất cả</button><button class="filter-chip" data-filter="task2">Task 2</button><button class="filter-chip" data-filter="task1">Task 1</button></div></div>
         <div class="review-grid" id="review-grid"></div>
@@ -53,6 +53,13 @@
       </section>
 
       <section class="sample-banner" id="samples"><div class="sample-orb"><i class="bi bi-book" aria-hidden="true"></i></div><div class="sample-copy"><div class="eyebrow small">GÓC HỌC TẬP</div><h2>Học cách viết tốt hơn qua bài mẫu</h2><p>Đối chiếu cấu trúc, cách phát triển ý và từ vựng học thuật trong bài mẫu có phân tích.</p></div><a href="#review-detail" class="sample-button" id="sample-link">Khám phá bài mẫu <span>→</span></a><div class="banner-decoration">Aa</div></section>
+      <section class="reading-room" id="reading-room"><div class="eyebrow">ĐỌC & PHÁT TRIỂN Ý</div><h2>Góc đọc IELTS</h2><p class="study-muted">Bài đọc luyện tập tự biên soạn · mở bài để đọc và luyện ý.</p>
+        <div class="reading-grid">
+          <details class="reading-card"><summary><span class="reading-tag">MEDIA · 2 PHÚT</span><h3>Why do people still buy printed books?</h3><span>Đọc bài & luyện ý ↗</span></summary><div class="reading-body"><p lang="en">A printed book offers more than information. A reader may enjoy the feel of its pages, write notes in the margins, or keep it as a reminder of a particular time. Digital books, by contrast, are easy to carry and can be searched quickly. The choice therefore depends on what the reader values. Convenience may encourage someone to read digitally during a commute, while personal attachment may lead the same person to buy a favourite novel in print.</p><p><b>Thử viết</b> — Vì sao sự tiện lợi chưa đủ để thay thế hoàn toàn sách giấy? Viết một ý chính và một ví dụ.</p><button type="button" data-save-word="personal attachment" data-meaning="sự gắn bó cá nhân">＋ Lưu “personal attachment”</button></div></details>
+          <details class="reading-card"><summary><span class="reading-tag">EDUCATION · 2 PHÚT</span><h3>Practical skills or academic knowledge?</h3><span>Đọc bài & luyện ý ↗</span></summary><div class="reading-body"><p lang="en">A university course can connect theory with practice. Students might first study why a bridge supports weight, then test a small model in a laboratory. The theory helps them explain a result, while the experiment reveals problems that a textbook example may overlook. Work placements offer another opportunity to apply knowledge. However, training for one specific job may become less useful when technology changes. A balanced education can give students both immediate skills and the ability to learn new ones.</p><p><b>Thử viết</b> — Nêu một lợi ích của lý thuyết và một lợi ích của thực hành. Dùng ví dụ từ cùng một ngành học.</p><button type="button" data-save-word="apply knowledge" data-meaning="áp dụng kiến thức">＋ Lưu “apply knowledge”</button></div></details>
+        </div>
+      </section></div>
+      <aside class="study-sidebar" aria-label="Công cụ học tập"><section class="vocab-panel" id="vocabulary"><div class="eyebrow">SỔ TAY CÁ NHÂN</div><h2>Từ vựng của bạn <span id="vocab-count" class="heading-count">0</span></h2><p class="study-muted">Lưu từ, nghĩa và câu ví dụ. Ghi chú chỉ lưu trên trình duyệt này.</p><form id="vocab-form"><label>Từ hoặc cụm từ<input id="vocab-word" required maxlength="120" placeholder="Ví dụ: accessible" autocomplete="off"></label><label>Nghĩa / ghi chú<textarea id="vocab-meaning" required maxlength="1000" rows="2" placeholder="Dễ tiếp cận; ghi thêm câu ví dụ..."></textarea></label><div class="vocab-actions"><button type="submit" id="vocab-submit">＋ Lưu từ</button><button type="button" id="vocab-cancel" hidden>Hủy sửa</button></div></form><p id="vocab-status" role="status"></p><label class="vocab-search">Tìm trong sổ tay<input id="vocab-search" type="search" placeholder="Từ hoặc nghĩa..."></label><div id="vocab-list"></div><button type="button" id="vocab-export">Tải sổ tay (.json) ↓</button></section><section class="practice-panel"><div class="eyebrow">MỖI NGÀY MỘT CHÚT</div><h3>10 phút cùng bài đã chữa</h3><ol><li>Đọc lại một đoạn và nhận xét.</li><li>Lưu 3 cụm từ hữu ích.</li><li>Viết lại đoạn bằng lời của bạn.</li></ol><a href="#reading-room">Khám phá góc đọc →</a></section></aside></div>
       <footer class="page-footer"><span>ESSAY ROOM · IELTS WRITING</span><span>Nhận xét mang tính tham khảo và phục vụ học tập.</span></footer>
     </main>
   </div>
@@ -63,7 +70,9 @@
       <div id="detail-content"></div>
     </div>
   </div>
-  <script src="data.js?v=first-review"></script>
-  <script src="app.js?v=first-review"></script>
+  <script src="data.js?v=study-hub"></script>
+  <script src="app.js?v=study-hub"></script>
+  <script src="study.js?v=study-hub"></script>
 </body>
 </html>
+
