@@ -308,3 +308,60 @@ summary { cursor: pointer; font-weight: 700; }
   #reviews .filter-chip { flex: 1; }
   #reviews .review-card h3 { font-size: 18px; }
 }
+
+/* Shared Essay Room palette: warm paper, teal, lavender, sky and apricot. */
+body { background:#fbfcf8; }
+.notebook-nav { background:#fffef9; }
+.welcome-section {
+  background:linear-gradient(115deg,#073e3d 0%,#0b5750 65%,#24786a 100%);
+  border:1px solid #23685e;
+  box-shadow:0 10px 28px rgba(16,80,66,.09);
+}
+.welcome-preview { background:#fff9e9; border-color:#eadcb7; }
+.preview-task { background:#e1ecee; color:#175969; }
+.preview-after { background:#edf7ec; border-radius:0 0 8px 8px; padding-inline:10px; }
+.metrics .metric-card:nth-child(1) { background:#eeeafa; border-color:#dcd3f0; }
+.metrics .metric-card:nth-child(2) { background:#fff0d8; border-color:#eddbb8; }
+.metrics .metric-card:nth-child(3) { background:#e5f1fb; border-color:#cbdfee; }
+.metrics .metric-card:nth-child(1) .metric-icon,.metrics .metric-card:nth-child(1) strong { color:#64458c; }
+.metrics .metric-card:nth-child(2) .metric-icon,.metrics .metric-card:nth-child(2) strong { color:#865512; }
+.metrics .metric-card:nth-child(3) .metric-icon,.metrics .metric-card:nth-child(3) strong { color:#275f8b; }
+.metric-card strong { font-size:24px; }
+#reviews { background:#edf5ef; border-color:#cbded0; border-top:4px solid #649c80; }
+#reviews .review-card { border-left:4px solid #78a68e; }
+.band-pill { background:#f1e7fa; color:#68418b; }
+.sample-banner { background:linear-gradient(115deg,#eee8f8,#f6f1fb); border:1px solid #ddd0ec; }
+.sample-copy h2,.sample-orb { color:#654684; }
+.sample-button { border-color:#d8c9e8; color:#654684; }
+.vocab-panel { background:#fff9e9; border-color:#eadcba; border-top:4px solid #d4aa52; }
+.practice-panel { background:#e9f2fb; border-color:#cddfeb; }
+.reading-card:nth-child(1) { background:#fff2ea; border-color:#eed5c6; border-top:4px solid #d99a75; }
+.reading-card:nth-child(2) { background:#eef0fc; border-color:#d6daf0; border-top:4px solid #939ccf; }
+.reading-tag { display:inline-block; background:rgba(255,255,255,.8); padding:4px 8px; border-radius:6px; }
+
+/* Permanent review template. Colors identify criteria, never score quality. */
+.notebook-score { padding:16px; border:1px solid #ded5eb; border-radius:16px; background:#fffcff; }
+.notebook-score h2 { background:transparent; color:#5c427c; padding:0 0 10px; }
+.score-display { margin-top:0; }
+.score-display > strong { background:linear-gradient(135deg,#eee5fa,#f5eafa); color:#69448a; border:1px solid #dfcdeb; padding:22px 12px; }
+.score-display > strong::after { color:#70597f; }
+.rubric-line {
+  --criterion-bg:#e9f4ef;
+  --criterion-ink:#24664e;
+  --criterion-border:#c6e1d4;
+  background:var(--criterion-bg);
+  border:1px solid var(--criterion-border);
+  border-left:4px solid var(--criterion-ink);
+  padding:12px;
+}
+.rubric-line[data-criterion="TR"] { --criterion-bg:#e7f3ee; --criterion-ink:#21664e; --criterion-border:#c4dfd2; }
+.rubric-line[data-criterion="CC"] { --criterion-bg:#eaf2fc; --criterion-ink:#285b8d; --criterion-border:#cbddef; }
+.rubric-line[data-criterion="LR"] { --criterion-bg:#f1eafb; --criterion-ink:#6c438e; --criterion-border:#dfcfee; }
+.rubric-line[data-criterion="GRA"] { --criterion-bg:#fff0e4; --criterion-ink:#925124; --criterion-border:#eed5c0; }
+.rubric-line > div { align-items:center; }
+.rubric-line > div > b { color:var(--criterion-ink); }
+.rubric-line > div > strong { background:var(--criterion-ink); color:white; border-radius:8px; min-width:44px; padding:5px 8px; text-align:center; font-size:18px; flex-shrink:0; }
+.rubric-line p { color:#3d5358; line-height:1.65; margin-top:8px; }
+#review-model { background:#eef0fb; border-color:#d5d9ee; border-left:4px solid #919bd0; }
+#review-draft { background:#fff3e8; border-color:#ecd9c5; border-left:4px solid #d3a06b; }
+@media(max-width:600px) { .notebook-score {padding:12px;} }

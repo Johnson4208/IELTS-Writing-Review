@@ -118,7 +118,7 @@
     const review = reviews.find(item => item.id === id);
     if (!review) return;
     previousFocus = document.activeElement;
-    const rubric = review.scores.map(item => '<div class="rubric-line"><div><b>' + escapeHtml(item.name) + '</b><strong>'
+    const rubric = review.scores.map(item => '<div class="rubric-line" data-criterion="' + escapeHtml(item.short || '') + '"><div><b>' + escapeHtml(item.name) + '</b><strong>'
       + band(item.score) + '</strong></div><p>' + escapeHtml(item.note) + '</p></div>').join('');
     const model = (review.modelEssay || []).map(p => '<p lang="en">' + escapeHtml(p) + '</p>').join('');
     const takeaways = (review.takeaways || []).map(p => '<li>' + escapeHtml(p) + '</li>').join('');
