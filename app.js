@@ -13,7 +13,7 @@
   const clampTitle = text => text.length > 55 ? `${text.slice(0, 52)}…` : text;
 
   function renderWelcome() {
-    const notes = reviews.flatMap(review => review.paragraphs.flatMap(paragraph => paragraph.annotations || []));
+    const notes = reviews.flatMap(review => [...review.paragraphs, ...(review.relatedDraft?.paragraphs || [])].flatMap(paragraph => paragraph.annotations || []));
     document.querySelector('#total-notes').textContent = notes.length;
     const featuredReview = reviews[0];
     const featuredNote = featuredReview?.paragraphs.flatMap(paragraph => paragraph.annotations || [])
@@ -65,13 +65,18 @@
 
   function highlightOriginal(original, annotations, paragraphIndex) {
     const ranges = [];
-    annotations.forEach(({quote}, index) => {
-      if (!quote) return;
-      const start = original.toLowerCase().indexOf(quote.toLowerCase());
-      if (start < 0) return;
-      const end = start + quote.length;
-      if (ranges.some(range => start < range.end && end > range.start)) return;
-      ranges.push({start, end, index});
+    annotations.forEach(({quote, quotes, sentence}, index) => {
+      const sentenceStart = sentence ? original.indexOf(sentence) : 0;
+      if (sentenceStart < 0) return;
+      const limit = sentence ? sentenceStart + sentence.length : original.length;
+      for (const excerpt of quotes || [quote]) {
+        if (!excerpt) continue;
+        const start = original.toLowerCase().indexOf(excerpt.toLowerCase(), sentenceStart);
+        const end = start + excerpt.length;
+        if (start < 0 || end > limit) continue;
+        if (ranges.some(range => start < range.end && end > range.start)) continue;
+        ranges.push({start, end, index});
+      }
     });
     let cursor = 0;
     let html = '';
@@ -94,16 +99,17 @@
     if (reveal) row.classList.add('note-open');
   }
 
-  function renderParagraph(paragraph, p) {
+  function renderParagraph(paragraph, p, namespace = '') {
+    const paragraphKey = namespace + p;
     const notes = paragraph.annotations || [];
-    const noteButtons = notes.map((note,i) => '<button type="button" data-note="' + i + '" aria-controls="note-' + p + '-' + i
+    const noteButtons = notes.map((note,i) => '<button type="button" data-note="' + i + '" aria-controls="note-' + paragraphKey + '-' + i
       + '" aria-expanded="false" aria-label="Nhận xét ' + (i + 1) + '">' + (i + 1) + '</button>').join('');
-    const noteCards = notes.map((note,i) => '<article class="margin-note" id="note-' + p + '-' + i + '" data-index="' + i + '"'
+    const noteCards = notes.map((note,i) => '<article class="margin-note" id="note-' + paragraphKey + '-' + i + '" data-index="' + i + '"'
       + (i ? ' hidden' : '') + '><b>' + escapeHtml(kinds[note.kind] || 'Gợi ý') + ' · ' + escapeHtml(note.title)
       + '</b><p>' + escapeHtml(note.body) + '</p><div class="note-fix"><strong>Gợi ý sửa</strong> ' + escapeHtml(note.fix) + '</div></article>').join('');
-    return '<section class="notebook-row" id="paragraph-' + p + '"><div class="paper-label"><b>P' + (p + 1)
+    return '<section class="notebook-row" id="paragraph-' + paragraphKey + '"><div class="paper-label"><b>P' + (p + 1)
       + '</b><span>' + escapeHtml(paragraph.label) + '</span></div><div class="paper-writing"><p lang="en">'
-      + highlightOriginal(paragraph.original,notes,p) + '</p>' + (paragraph.summary ? '<details><summary>Nhận xét đoạn</summary><p>' + escapeHtml(paragraph.summary) + '</p></details>' : '')
+      + highlightOriginal(paragraph.original,notes,paragraphKey) + '</p>' + (paragraph.summary ? '<details><summary>Nhận xét đoạn</summary><p>' + escapeHtml(paragraph.summary) + '</p></details>' : '')
       + '</div>' + (notes.length ? '<div class="paper-comments"><div class="note-choices" aria-label="Nhận xét đoạn ' + (p + 1) + '">'
       + noteButtons + '</div><div class="note-content" aria-live="polite">' + noteCards + '</div></div>' : '') + '</section>';
   }
@@ -118,20 +124,27 @@
     const takeaways = (review.takeaways || []).map(p => '<li>' + escapeHtml(p) + '</li>').join('');
     const rewrites = review.paragraphs.filter(p => p.rewrite).map(p => '<article><h3>' + escapeHtml(p.label) + '</h3><p lang="en">'
       + escapeHtml(p.rewrite) + '</p></article>').join('');
+    const draft = review.relatedDraft;
+    const draftPanel = draft ? '<details class="notebook-model" id="review-draft"><summary>' + icon('journal-text')
+      + '<span><b>' + escapeHtml(draft.title) + '</b></span><strong>Mở phần chữa bài</strong></summary><div class="notebook-paper">'
+      + '<p class="paper-instruction">' + escapeHtml(draft.summary) + '</p>'
+      + draft.paragraphs.map((paragraph, index) => renderParagraph(paragraph, index, 'draft-')).join('') + '</div></details>' : '';
     const totalNotes = review.paragraphs.reduce((sum,p) => sum + (p.annotations || []).length,0);
     detail.innerHTML = '<header class="review-heading"><div><div class="review-task">' + escapeHtml(review.typeLabel)
       + '</div><h1 id="detail-title" tabindex="-1">' + escapeHtml(review.title) + '</h1></div><span>' + icon('calendar3') + ' '
       + escapeHtml(review.date) + '</span></header><div class="review-sheet-layout"><div class="review-sheet-main"><section class="prompt-strip"><b>Đề bài</b><p lang="en">'
       + escapeHtml(review.prompt) + '</p></section><section id="review-errors" class="notebook-paper" tabindex="-1"><h2>Bài viết gốc của bạn</h2>'
-      + '<p class="paper-instruction">Bấm vào cụm từ được tô màu hoặc số ghi chú để xem giải thích.</p>' + review.paragraphs.map(renderParagraph).join('')
+      + '<p class="paper-instruction">Bấm vào cụm từ được tô màu hoặc số ghi chú để xem giải thích.</p>' + review.paragraphs.map((paragraph, index) => renderParagraph(paragraph, index)).join('')
       + '</section></div><aside class="review-sidebar"><section class="notebook-score"><h2>Điểm ước lượng</h2><div class="score-display"><strong>'
       + band(review.band) + '</strong><div>' + rubric + '</div></div><details><summary>Nhận xét tổng quan</summary><p>' + escapeHtml(review.verdict)
       + '</p></details></section><nav class="review-jumps" aria-label="Nội dung bài chữa"><button type="button" data-jump="review-errors">'
       + icon('search') + '<span><b>Xem lỗi</b><small>' + totalNotes + ' nhận xét trong bài</small></span>' + icon('arrow-right') + '</button>'
       + (rewrites ? '<button type="button" data-jump="review-rewrites">' + icon('lightbulb') + '<span><b>Câu gợi ý</b><small>Đọc bản viết lại theo đoạn</small></span>' + icon('arrow-right') + '</button>' : '')
       + (model ? '<button type="button" data-jump="review-model">' + icon('book') + '<span><b>Bài mẫu</b><small>Tham khảo cách triển khai ý</small></span>' + icon('arrow-right') + '</button>' : '')
+      + (draft ? '<button type="button" data-jump="review-draft">' + icon('journal-text') + '<span><b>Bài 1</b><small>Xem phần chữa bài lạc đề</small></span>' + icon('arrow-right') + '</button>' : '')
       + '</nav></aside></div>'
-      + (model ? '<details class="notebook-model" id="review-model"><summary>' + icon('book') + '<span><b>Bài mẫu tham khảo</b><small lang="en">' + escapeHtml(review.modelEssay[0]) + '</small></span><strong>Xem bài mẫu đầy đủ</strong></summary><div class="model-body">' + model + (takeaways ? '<h3>Điểm nên học</h3><ul>' + takeaways + '</ul>' : '') + '</div></details>' : '')
+      + (model ? '<details class="notebook-model" id="review-model"><summary>' + icon('book') + '<span><b>' + escapeHtml(review.modelLabel || 'Bài mẫu tham khảo') + '</b><small lang="en">' + escapeHtml(review.modelEssay[0]) + '</small></span><strong>Xem bài mẫu đầy đủ</strong></summary><div class="model-body">' + model + (takeaways ? '<h3>Điểm nên học</h3><ul>' + takeaways + '</ul>' : '') + '</div></details>' : '')
+      + draftPanel
       + (rewrites ? '<section class="notebook-rewrites" id="review-rewrites" tabindex="-1"><h2>Câu gợi ý theo từng đoạn</h2>' + rewrites + '</section>' : '');
     if (window.matchMedia('(min-width: 1031px)').matches) {
       detail.querySelectorAll('.notebook-row').forEach(row => selectNote(row, 0, false));
@@ -150,7 +163,7 @@
     if (!target) return;
     if (target instanceof HTMLDetailsElement) target.open = true;
     (target.querySelector('summary') || target).focus({preventScroll:true});
-    target.scrollIntoView({block:'start'});
+    target.scrollIntoView({block: id === 'review-draft' ? 'center' : 'start'});
   }
 
   function closeReview() {
