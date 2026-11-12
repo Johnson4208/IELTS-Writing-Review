@@ -358,3 +358,12 @@ summary { cursor: pointer; font-weight: 700; }
   .paper-label b { flex-shrink:0; }
   .paper-comments { grid-column:1; }
 }
+
+.model-assessment { display:grid; grid-template-columns:170px minmax(0,1fr); gap:20px; background:#fff; border:1px solid #d8ccea; border-radius:12px; padding:20px; margin:20px 0 24px; font:14px/1.65 "DM Sans",sans-serif; }
+.model-assessment > div:first-child { border-right:1px solid #e2daef; padding-right:16px; }
+.model-assessment span { display:block; font-size:11px; letter-spacing:.08em; color:#705489; font-weight:700; }
+.model-assessment strong { display:block; font:800 30px/1.5 var(--heading); color:#69448a; }
+.model-assessment small { display:block; color:#63576f; font-size:12px; }
+.model-assessment p { margin:6px 0; }
+.model-score-pending { font:14px/1.5 "DM Sans",sans-serif; color:#63576f; }
+@media(max-width:600px) { .model-assessment {grid-template-columns:1fr; gap:12px;padding:16px;} .model-assessment > div:first-child {border-right:0;border-bottom:1px solid #e2daef;padding:0 0 12px;} }

@@ -121,6 +121,13 @@
     const rubric = review.scores.map(item => '<div class="rubric-line" data-criterion="' + escapeHtml(item.short || '') + '"><div><b>' + escapeHtml(item.name) + '</b><strong>'
       + band(item.score) + '</strong></div><p>' + escapeHtml(item.note) + '</p></div>').join('');
     const model = (review.modelEssay || []).map(p => '<p lang="en">' + escapeHtml(p) + '</p>').join('');
+    const assessment = review.modelAssessment;
+    const modelScore = assessment && typeof assessment.band === 'number' && Number.isFinite(assessment.band)
+      ? '<section class="model-assessment" aria-label="Điểm ước lượng bản viết lại"><div><span>BẢN VIẾT LẠI</span><strong>Band ' + band(assessment.band) + '</strong>'
+        + (assessment.range ? '<small>Khoảng tham khảo: ' + escapeHtml(assessment.range) + '</small>' : '')
+        + '</div><div><b>Điểm ước lượng riêng cho bài viết lại</b><p>' + escapeHtml(assessment.note || '')
+        + '</p><small>Đánh giá tham khảo bằng AI, không phải điểm thi chính thức.</small></div></section>'
+      : '<p class="model-score-pending">Bản viết lại chưa có điểm ước lượng.</p>';
     const takeaways = (review.takeaways || []).map(p => '<li>' + escapeHtml(p) + '</li>').join('');
     const rewrites = review.paragraphs.filter(p => p.rewrite).map(p => '<article><h3>' + escapeHtml(p.label) + '</h3><p lang="en">'
       + escapeHtml(p.rewrite) + '</p></article>').join('');
@@ -143,7 +150,7 @@
       + (model ? '<button type="button" data-jump="review-model">' + icon('book') + '<span><b>Bài mẫu</b><small>Tham khảo cách triển khai ý</small></span>' + icon('arrow-right') + '</button>' : '')
       + (draft ? '<button type="button" data-jump="review-draft">' + icon('journal-text') + '<span><b>Bài 1</b><small>Xem phần chữa bài lạc đề</small></span>' + icon('arrow-right') + '</button>' : '')
       + '</nav></aside></div>'
-      + (model ? '<details class="notebook-model" id="review-model"><summary>' + icon('book') + '<span><b>' + escapeHtml(review.modelLabel || 'Bài mẫu tham khảo') + '</b><small lang="en">' + escapeHtml(review.modelEssay[0]) + '</small></span><strong>Xem bài mẫu đầy đủ</strong></summary><div class="model-body">' + model + (takeaways ? '<h3>Điểm nên học</h3><ul>' + takeaways + '</ul>' : '') + '</div></details>' : '')
+      + (model ? '<details class="notebook-model" id="review-model"><summary>' + icon('book') + '<span><b>' + escapeHtml(review.modelLabel || 'Bài mẫu tham khảo') + '</b><small lang="en">' + escapeHtml(review.modelEssay[0]) + '</small></span><strong>Xem bài mẫu đầy đủ</strong></summary><div class="model-body">' + modelScore + model + (takeaways ? '<h3>Điểm nên học</h3><ul>' + takeaways + '</ul>' : '') + '</div></details>' : '')
       + draftPanel
       + (rewrites ? '<section class="notebook-rewrites" id="review-rewrites" tabindex="-1"><h2>Câu gợi ý theo từng đoạn</h2>' + rewrites + '</section>' : '');
     if (window.matchMedia('(min-width: 1031px)').matches) {

@@ -248,7 +248,13 @@ window.REVIEWS = [
       "Sau “prefer”, dùng danh từ, V-ing hoặc “to + động từ”, ví dụ “prefer to limit government intervention”.",
       "Phát triển luận điểm bằng quan hệ nguyên nhân và hệ quả, rồi thêm ví dụ liên quan trực tiếp.",
       "Giải thích cụ thể “cách tiếp cận cân bằng” là gì, chẳng hạn chính phủ đặt luật và cung cấp dịch vụ thiết yếu còn doanh nghiệp tự quyết định hoạt động thường ngày."
-    ]
+    ],
+    "modelAssessment": {
+      "band": 7.5,
+      "range": "7.0–8.0",
+      "note": "Ước lượng riêng cho bản viết lại: trả lời cả hai quan điểm, lập trường rõ và ngữ pháp được kiểm soát tốt. Một số ý về thị trường và điều tiết còn khái quát; từ vựng chính xác nhưng độ linh hoạt chưa thật nổi bật.",
+      "source": "https://ielts.org/cdn/ielts-guides/ielts-writing-band-descriptors.pdf"
+    }
   },
   {
     "id": "printed-books-online",
@@ -708,6 +714,12 @@ window.REVIEWS = [
           ]
         }
       ]
+    },
+    "modelAssessment": {
+      "band": 7.5,
+      "range": "7.0–8.0",
+      "note": "Ước lượng riêng cho bản viết lại: trả lời trực tiếp việc ngừng mua sách và báo in, có ví dụ cho cả hai loại ấn phẩm và phân biệt nội dung miễn phí với nội dung thu phí. Bố cục rõ, câu văn chính xác; vốn từ và mức phát triển một số ý vẫn có thể mở rộng.",
+      "source": "https://ielts.org/cdn/ielts-guides/ielts-writing-band-descriptors.pdf"
     }
   }
 ];
