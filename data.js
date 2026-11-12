@@ -1,6 +1,256 @@
 /* Nội dung bài chữa trong thư viện Essay Room. */
 window.REVIEWS = [
   {
+    "id": "government-role-economic-development-2026-11-12",
+    "title": "Vai trò của chính phủ trong phát triển kinh tế",
+    "prompt": "The role of government is often debated in economic development. Some argue that the government should play a central role in the economy, while others believe that it should have a limited role. Discuss both views and give your own opinion",
+    "type": "task2",
+    "typeLabel": "WRITING TASK 2",
+    "topic": "Government · Economic development",
+    "date": "12 THÁNG 11, 2026",
+    "band": 5,
+    "wordCount": 246,
+    "verdict": "Bài trả lời đúng dạng Discuss both views and give your own opinion. Bài nêu được lý do ủng hộ chính phủ can thiệp, lý do ủng hộ thị trường tự do và lập trường dung hòa. Tuy vậy, nhiều ý mới chỉ được nêu tên, ví dụ còn khái quát, và lập trường chưa giải thích rõ chính phủ nên can thiệp ở đâu. Lỗi ngữ pháp, chính tả và kết hợp từ thường xuyên làm giảm độ chính xác. Đây là điểm ước lượng cho bài Task 2 này, không phải điểm Writing tổng thể hay điểm thi chính thức. Bài có 246 từ theo cách đếm bằng khoảng trắng, tính từ ghép có gạch nối là một từ. Mức tối thiểu 250 từ không bị quy đổi thành khoản trừ điểm cố định, nhưng độ dài này làm hạn chế việc phát triển luận điểm.",
+    "scores": [
+      {
+        "name": "Task Response",
+        "short": "TR",
+        "score": 5,
+        "note": "Đề yêu cầu thảo luận hai quan điểm và nêu ý kiến. Bài có cả hai phía và chọn hướng cân bằng, nhưng các luận điểm về cơ sở hạ tầng, phúc lợi và thị trường tự do chưa được giải thích sâu. Ví dụ còn khái quát và chưa nói rõ chính phủ nên làm gì để tạo ra sự cân bằng."
+      },
+      {
+        "name": "Coherence & Cohesion",
+        "short": "CC",
+        "score": 5,
+        "note": "Trình tự tổng thể theo dõi được nhờ các đoạn trình bày hai phía và kết luận. Tuy nhiên, đoạn ý kiến riêng rất ngắn và tách khỏi hai đoạn thân bài, làm lập luận chưa liền. Một số liên từ và dấu câu chưa chính xác, như dấu phẩy ngay sau “whereas”."
+      },
+      {
+        "name": "Lexical Resource",
+        "short": "LR",
+        "score": 5,
+        "note": "Có từ vựng đúng chủ đề như “income inequality”, “infrastructure”, “entrepreneurship” và “market-oriented policies”. Nhưng lỗi chính tả và kết hợp từ như “affective”, “dweller”, “stable legal labor” và “inovation” làm giảm độ chính xác."
+      },
+      {
+        "name": "Grammatical Range & Accuracy",
+        "short": "GRA",
+        "score": 4,
+        "note": "Bài thử dùng mệnh đề phụ và câu phức, nhưng lỗi xuất hiện thường xuyên ở cấu trúc câu, chia động từ, số ít/số nhiều, mạo từ và giới từ. Câu mở đầu “While some people believe...” chưa hoàn chỉnh. “The market are free”, “they are respond” và “prefer limited their interference” cũng sai cấu trúc."
+      }
+    ],
+    "paragraphs": [
+      {
+        "label": "Mở bài",
+        "original": "The role of government in economic development is a subject of ongoing debate. While some people believe that actively intervene in the economy to promote growth in country’s finance. I believe a balanced approach is more affective.",
+        "annotations": [
+          {
+            "quote": "While some people believe that actively intervene in the economy to promote growth in country’s finance.",
+            "quotes": [
+              "While some people believe that actively intervene in the economy to promote growth in country’s finance."
+            ],
+            "sentence": "While some people believe that actively intervene in the economy to promote growth in country’s finance.",
+            "kind": "grammar",
+            "title": "[Lỗi] Mệnh đề phụ chưa hoàn chỉnh",
+            "body": "Sau “believe that” cần có chủ ngữ và động từ chia thì. “Actively intervene” chưa nêu ai can thiệp. Câu mở bằng “While” còn là mệnh đề phụ nhưng lại kết thúc bằng dấu chấm. “In country’s finance” cũng không tự nhiên để diễn đạt tăng trưởng kinh tế của quốc gia.",
+            "fix": "While some people believe that the government should actively intervene in the economy to promote national economic growth, others argue that its role should be limited."
+          },
+          {
+            "quote": "more affective",
+            "quotes": [
+              "more affective"
+            ],
+            "sentence": "I believe a balanced approach is more affective.",
+            "kind": "vocabulary",
+            "title": "[Lỗi] Nhầm affective với effective",
+            "body": "“Affective” liên quan đến cảm xúc. Từ diễn đạt “có hiệu quả” là “effective”. Lập trường cân bằng hợp đề, nhưng nên nói cụ thể chính phủ hỗ trợ thị trường theo cách nào.",
+            "fix": "I believe that a balanced approach, in which the government supports rather than controls the market, is the most effective."
+          }
+        ],
+        "rewrite": "The role of government in economic development is widely debated. While some people believe that governments should play a central role in the economy, others argue that their involvement should be limited. I believe governments should provide essential services and set clear rules while allowing businesses to operate freely."
+      },
+      {
+        "label": "Thân bài 1 · Vai trò chủ động của chính phủ",
+        "original": "On the one hand, supporters of strong government argued that they must play a crucial role in guiding economic development. Government can invest in essential infrastructure such as roads, schools, healthcare systems, ect, which provide the foundation for the long-term economic growth. Furthemore, authorities can help reduce income inequality and protect vulnerable groups to improve resident’s satisfaction level. For instance, many developed country invest heavily social welfare and public services.",
+        "annotations": [
+          {
+            "quote": "supporters of strong government argued that they must play a crucial role",
+            "quotes": [
+              "supporters of strong government argued that they must play a crucial role"
+            ],
+            "sentence": "On the one hand, supporters of strong government argued that they must play a crucial role in guiding economic development.",
+            "kind": "grammar",
+            "title": "[Lỗi] Thì và đại từ chưa rõ",
+            "body": "Bài mô tả quan điểm chung nên “argue” phù hợp hơn “argued”. Đại từ “they” có thể chỉ supporters hoặc government. Dùng “governments” làm chủ thể sẽ rõ hơn.",
+            "fix": "On the one hand, supporters of an active government argue that governments have a crucial role to play in guiding economic development."
+          },
+          {
+            "quote": "ect",
+            "quotes": [
+              "ect",
+              "the long-term economic growth"
+            ],
+            "sentence": "Government can invest in essential infrastructure such as roads, schools, healthcare systems, ect, which provide the foundation for the long-term economic growth.",
+            "kind": "vocabulary",
+            "title": "[Lỗi] Chính tả và mạo từ",
+            "body": "“Ect” sai chính tả. Có thể viết “etc.”, nhưng trong bài học thuật nên hoàn tất danh sách bằng “and other services”. “Economic growth” dùng theo nghĩa khái quát thường không cần “the”.",
+            "fix": "Governments can invest in essential infrastructure, such as roads, schools and healthcare systems, which provides a foundation for long-term economic growth."
+          },
+          {
+            "quote": "Furthemore",
+            "quotes": [
+              "Furthemore",
+              "resident’s satisfaction level"
+            ],
+            "sentence": "Furthemore, authorities can help reduce income inequality and protect vulnerable groups to improve resident’s satisfaction level.",
+            "kind": "vocabulary",
+            "title": "[Lỗi] Chính tả và kết hợp từ",
+            "body": "“Furthemore” sai chính tả, dạng đúng là “Furthermore”. “Resident’s satisfaction level” không tự nhiên trong ngữ cảnh này. Có thể dùng “residents’ quality of life” hoặc “public well-being”.",
+            "fix": "Furthermore, authorities can reduce income inequality and protect vulnerable groups, thereby improving residents’ quality of life."
+          },
+          {
+            "quote": "many developed country invest heavily social welfare and public services",
+            "quotes": [
+              "many developed country invest heavily social welfare and public services"
+            ],
+            "sentence": "For instance, many developed country invest heavily social welfare and public services.",
+            "kind": "development",
+            "title": "[Bám đề / Lập luận] Ví dụ còn chung chung",
+            "body": "Ví dụ không nêu tình huống cụ thể. Câu còn cần danh từ số nhiều sau “many”, giới từ “in” sau “invest”, và cách kết hợp tự nhiên với “social welfare”. Không cần thêm số liệu. Có thể minh họa bằng một dịch vụ công liên quan trực tiếp.",
+            "fix": "For example, public investment in healthcare can help ensure that low-income families have access to essential medical services."
+          }
+        ],
+        "rewrite": "On the one hand, an active government can support long-term development by investing in infrastructure such as roads, schools and healthcare systems. These services help businesses operate and improve access to education and healthcare. Governments can also support vulnerable groups and reduce income inequality through social programmes. For example, public investment in healthcare can help low-income families access essential medical services."
+      },
+      {
+        "label": "Thân bài 2 · Vai trò hạn chế của chính phủ",
+        "original": "On the other hand, dweller who believe that limited government role in economic argued that businesses and individuals are better positioned when the market are free. For example, investors can make easier economic decision because they are respond directly to market demand. Moreover, high taxes and strict regulations can discourage entrepreneurship and investment. Countries which can embrace market-oriented policies often offer freedom for enterprise in inovation, competition and productivity.",
+        "annotations": [
+          {
+            "quote": "dweller who believe that limited government role in economic argued",
+            "quotes": [
+              "dweller who believe that limited government role in economic argued",
+              "the market are free"
+            ],
+            "sentence": "On the other hand, dweller who believe that limited government role in economic argued that businesses and individuals are better positioned when the market are free.",
+            "kind": "grammar",
+            "title": "[Lỗi] Cụm danh từ và chia động từ",
+            "body": "“Dweller” nghĩa là cư dân, không phù hợp với nghĩa người ủng hộ. Dùng “supporters of a limited government role”. “In economic” thiếu danh từ, nên viết “in the economy”. “Market” số ít đi với “is”, hoặc dùng “markets are free”.",
+            "fix": "On the other hand, supporters of a limited government role argue that businesses and individuals are better positioned to make decisions when markets are free."
+          },
+          {
+            "quote": "make easier economic decision",
+            "quotes": [
+              "make easier economic decision",
+              "they are respond"
+            ],
+            "sentence": "For example, investors can make easier economic decision because they are respond directly to market demand.",
+            "kind": "grammar",
+            "title": "[Lỗi] Trật tự từ và cấu trúc động từ",
+            "body": "Trạng từ “more easily” bổ nghĩa cho “make”. “Decision” cần số nhiều hoặc mạo từ. Không dùng “are respond” theo cấu trúc này. Có thể viết “can respond” hoặc “respond directly”.",
+            "fix": "For example, investors can make economic decisions more easily because they can respond directly to market demand."
+          },
+          {
+            "quote": "high taxes and strict regulations can discourage entrepreneurship and investment",
+            "quotes": [
+              "high taxes and strict regulations can discourage entrepreneurship and investment"
+            ],
+            "sentence": "Moreover, high taxes and strict regulations can discourage entrepreneurship and investment.",
+            "kind": "development",
+            "title": "[Nâng cấp] Giải thích tác động cụ thể",
+            "body": "Câu đúng ngữ pháp và đưa ra lý do phù hợp. Hãy giải thích doanh nghiệp bị ảnh hưởng như thế nào, chẳng hạn chi phí tuân thủ cao làm giảm ngân sách tuyển dụng hoặc mở rộng. Đây là gợi ý phát triển ý, không phải lỗi.",
+            "fix": "Moreover, high taxes and complex regulations can raise the cost of running a business, leaving companies with less money to hire workers or expand."
+          },
+          {
+            "quote": "offer freedom for enterprise in inovation, competition and productivity",
+            "quotes": [
+              "offer freedom for enterprise in inovation, competition and productivity"
+            ],
+            "sentence": "Countries which can embrace market-oriented policies often offer freedom for enterprise in inovation, competition and productivity.",
+            "kind": "vocabulary",
+            "title": "[Lỗi] Chính tả và kết hợp từ",
+            "body": "“Inovation” sai chính tả, đúng là “innovation”. “Offer freedom for enterprise in innovation” không phải cách kết hợp từ tự nhiên. Có thể nói chính sách thị trường tạo điều kiện cho doanh nghiệp cạnh tranh và đổi mới.",
+            "fix": "Countries that adopt market-oriented policies can give businesses greater freedom to compete and innovate, which may improve productivity."
+          }
+        ],
+        "rewrite": "On the other hand, a limited government role can give businesses greater freedom to respond to market demand. Investors may make decisions more quickly when they are not subject to excessive regulation. High taxes and complex rules can raise the cost of running a business and discourage investment. Greater competition may also encourage firms to innovate and improve productivity."
+      },
+      {
+        "label": "Ý kiến cá nhân",
+        "original": "In my opinion, government should create a stable legal labor and protect consumers and the environment in this field. They must play a supportive role rather than controlling role.",
+        "annotations": [
+          {
+            "quote": "create a stable legal labor",
+            "quotes": [
+              "create a stable legal labor",
+              "in this field"
+            ],
+            "sentence": "In my opinion, government should create a stable legal labor and protect consumers and the environment in this field.",
+            "kind": "vocabulary",
+            "title": "[Lỗi] Dùng sai cụm từ",
+            "body": "“Legal labor” thường chỉ lao động hợp pháp, không có nghĩa hệ thống luật pháp ổn định. Ý phù hợp ở đây là “a stable legal framework”. “In this field” mơ hồ. “Government” khi nói chính phủ nói chung thường dùng “the government” hoặc “governments”.",
+            "fix": "In my opinion, the government should establish a stable legal framework and protect consumers and the environment."
+          },
+          {
+            "quote": "They must play a supportive role rather than controlling role",
+            "quotes": [
+              "They must play a supportive role rather than controlling role"
+            ],
+            "sentence": "They must play a supportive role rather than controlling role.",
+            "kind": "grammar",
+            "title": "[Lỗi] Đại từ chưa rõ và thiếu mạo từ",
+            "body": "“They” có thể chỉ chính phủ hoặc người dân. Gọi lại chủ thể “the government” để tránh mơ hồ. Cụm so sánh cần mạo từ ở cả hai vế: “a supportive role rather than a controlling role”.",
+            "fix": "The government should play a supportive role rather than a controlling one."
+          }
+        ],
+        "rewrite": "In my opinion, governments should establish a stable legal framework and protect consumers and the environment. They should provide essential services and enforce fair rules while leaving day-to-day business decisions largely to the private sector."
+      },
+      {
+        "label": "Kết bài",
+        "original": "In conclusion, some people believe governments should take a central role in economic development, whereas, others prefer limited their interference. I believe that a balanced approach on market forces offers the best path toward to sustainable economic growth and social welfare",
+        "annotations": [
+          {
+            "quote": "whereas, others prefer limited their interference",
+            "quotes": [
+              "whereas, others prefer limited their interference"
+            ],
+            "sentence": "In conclusion, some people believe governments should take a central role in economic development, whereas, others prefer limited their interference.",
+            "kind": "grammar",
+            "title": "[Lỗi] Dấu câu và cấu trúc sau prefer",
+            "body": "Không đặt dấu phẩy ngay sau “whereas” khi nối hai vế trong cùng câu. Sau “prefer” cần danh từ, V-ing hoặc “to + động từ”; “prefer limited their interference” sai cấu trúc.",
+            "fix": "In conclusion, some people believe that governments should take a central role in economic development, whereas others prefer to limit government intervention."
+          },
+          {
+            "quote": "a balanced approach on market forces",
+            "quotes": [
+              "a balanced approach on market forces",
+              "toward to sustainable economic growth"
+            ],
+            "sentence": "I believe that a balanced approach on market forces offers the best path toward to sustainable economic growth and social welfare",
+            "kind": "vocabulary",
+            "title": "[Lỗi] Giới từ chưa chính xác",
+            "body": "Dùng “approach to” hoặc “balance between”. Sau “path toward” không thêm “to”. Câu cũng thiếu dấu chấm cuối. Hãy nêu rõ chính phủ cần cân bằng điều tiết với tự do thị trường.",
+            "fix": "I believe that balancing government regulation with market freedom offers the best path towards sustainable economic growth and social welfare."
+          }
+        ],
+        "rewrite": "In conclusion, governments can promote development by investing in essential services and protecting the public, while excessive intervention may limit business activity. I believe that balancing effective regulation with market freedom is the best way to support sustainable economic growth and social welfare."
+      }
+    ],
+    "modelLabel": "Bản viết lại · 277 từ",
+    "modelEssay": [
+      "The role of government in economic development is widely debated. While some people believe that governments should play a central role in the economy, others argue that their involvement should be limited. I believe that governments should provide essential services and set clear rules while allowing businesses to operate freely.",
+      "On the one hand, government involvement can support long-term economic growth. Public investment in roads, schools and healthcare provides services that businesses and workers need. Better transport can connect rural producers with larger markets, while education equips workers with practical skills. Governments can also protect people who may not benefit equally from economic growth by funding basic services and targeted support. For example, accessible public healthcare can help lower-income families receive essential treatment.",
+      "On the other hand, excessive government control can reduce the freedom of businesses to respond to consumers. When companies face high taxes or complex regulations, they may have less money or incentive to hire workers, invest or expand. In a competitive market, businesses can adjust their products and services in response to demand. This gives consumers more choice and encourages firms to offer better products at competitive prices. This flexibility may encourage innovation and improve productivity.",
+      "In my view, neither complete government control nor an entirely hands-off approach is ideal. Governments should maintain a stable legal framework, protect consumers and the environment, and provide essential public services. Within these boundaries, businesses should be free to make most day-to-day decisions.",
+      "In conclusion, government intervention can provide infrastructure and protect the public, while excessive control may restrict business activity. A balance between effective regulation and market freedom is therefore the best approach to sustainable economic development."
+    ],
+    "takeaways": [
+      "Sau “believe that”, viết mệnh đề đủ chủ ngữ và động từ chia thì; không tách mệnh đề bắt đầu bằng “While” thành câu riêng.",
+      "Dùng chính xác dạng từ và kết hợp từ, như “effective”, “legal framework” và “invest in”.",
+      "Sau “prefer”, dùng danh từ, V-ing hoặc “to + động từ”, ví dụ “prefer to limit government intervention”.",
+      "Phát triển luận điểm bằng quan hệ nguyên nhân và hệ quả, rồi thêm ví dụ liên quan trực tiếp.",
+      "Giải thích cụ thể “cách tiếp cận cân bằng” là gì, chẳng hạn chính phủ đặt luật và cung cấp dịch vụ thiết yếu còn doanh nghiệp tự quyết định hoạt động thường ngày."
+    ]
+  },
+  {
     "id": "printed-books-online",
     "title": "Báo in và sách giấy sẽ biến mất?",
     "prompt": "In the future, nobody will buy printed newspapers or books because they will be able to read everything they want online for free. To what extent do you agree or disagree?",
