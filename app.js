@@ -82,8 +82,8 @@
     let html = '';
     ranges.sort((a,b) => a.start - b.start).forEach(({start,end,index}) => {
       html += escapeHtml(original.slice(cursor,start))
-        + '<button type="button" class="ink-mark" data-note="' + index + '" aria-controls="note-' + paragraphIndex + '-' + index
-        + '" aria-expanded="false">' + escapeHtml(original.slice(start,end)) + '<sup>' + (index + 1) + '</sup></button>';
+        + '<span role="button" tabindex="0" class="ink-mark" data-note="' + index + '" aria-controls="note-' + paragraphIndex + '-' + index
+        + '" aria-expanded="false">' + escapeHtml(original.slice(start,end)) + '<sup>' + (index + 1) + '</sup></span>';
       cursor = end;
     });
     return html + escapeHtml(original.slice(cursor));
@@ -197,6 +197,13 @@
     }
     const jump = event.target.closest('[data-jump]');
     if (jump) jumpTo(jump.dataset.jump);
+  });
+  document.addEventListener('keydown', event => {
+    const marker = event.target.closest('.ink-mark[role="button"]');
+    if (marker && (event.key === 'Enter' || event.key === ' ')) {
+      event.preventDefault();
+      marker.click();
+    }
   });
   document.querySelectorAll('.filter-chip').forEach(button => button.addEventListener('click', () => {
     document.querySelector('.filter-chip.selected')?.classList.remove('selected');

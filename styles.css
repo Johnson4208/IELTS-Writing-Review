@@ -339,3 +339,22 @@ summary { cursor: pointer; font-weight: 700; }
 #review-model { background:#eef0fb; border-color:#d5d9ee; border-left:4px solid #919bd0; }
 #review-draft { background:#fff3e8; border-color:#ecd9c5; border-left:4px solid #d3a06b; }
 @media(max-width:600px) { .notebook-score {padding:12px;} }
+
+/* True inline annotations wrap with the sentence instead of as button boxes. */
+.ink-mark { display:inline; cursor:pointer; white-space:normal; padding:0; border-radius:2px; }
+.ink-mark:focus-visible { outline:2px solid var(--coral); outline-offset:2px; }
+.ink-mark sup { font-size:.65em; line-height:0; vertical-align:super; }
+.paper-writing,.paper-comments,.review-sheet-main { min-width:0; }
+.paper-writing > p { line-height:1.85; background:none; overflow-wrap:break-word; }
+.notebook-row { align-items:start; padding-block:20px; }
+.paper-label { align-self:stretch; }
+.margin-note { line-height:1.65; padding:12px; }
+@media(min-width:1031px) {
+  .notebook-row { grid-template-columns:80px minmax(0,1fr) minmax(200px,30%); gap:16px; }
+}
+@media(max-width:720px) {
+  .notebook-row { grid-template-columns:minmax(0,1fr); }
+  .paper-label { border-right:0; border-bottom:1px solid #d4e6ee; padding:0 0 8px; display:flex; align-items:baseline; gap:10px; }
+  .paper-label b { flex-shrink:0; }
+  .paper-comments { grid-column:1; }
+}
